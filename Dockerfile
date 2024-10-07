@@ -4,13 +4,11 @@ FROM python:3.11.10-alpine3.20 AS builder
 
 WORKDIR /app
 
-COPY requirement.txt .
+COPY requirements.txt .
 
-RUN python -m pip install -q --no-cache-dir -r requirement.txt -t ./
+RUN python -m pip install -q --no-cache-dir -r requirements.txt -t ./
 
 COPY . .
-
-COPY manifest.json .
 
 FROM python:3.11.10-alpine3.20
 
