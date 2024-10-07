@@ -1,8 +1,10 @@
+#!/usr/bin/env python
+
 import docker
+import json
 import random
 import string
 import time
-import json
 
 
 class InstantboxManager(object):
@@ -30,7 +32,7 @@ class InstantboxManager(object):
             for ver in os['subList']:
                 self.AVAILABLE_OS_LIST.append(ver['osCode'])
 
-    def is_create_container(self,
+    def create_container(self,
                             mem,
                             cpu,
                             os_name,
@@ -41,7 +43,7 @@ class InstantboxManager(object):
         else:
             port_dict = {'{}/tcp'.format(open_port): None}
 
-        container_name = self.generateContainerName()
+        container_name = self.generate_container_name()
         try:
             container_network = self.client.networks.create(
                 name=container_name + '_net',
@@ -85,15 +87,15 @@ class InstantboxManager(object):
             if container.name.startswith(self.CONTAINER_PREFIX):
                 timeout = container.labels.get(self.TIMEOUT_LABEL)
                 if timeout is not None and float(timeout) < time.time():
-                    self.is_rm_container(container.name)
+                    self.remove_container(container.name)
 
-    def is_rm_container(self, container_id) -> bool:
+    def remove_container(self, container_id) -> bool:
         try:
             container = self.client.containers.get(container_id)
             if container.name.startswith(self.CONTAINER_PREFIX):
                 container.remove(force=True)
                 container_network = self.client.networks.get(
-                    network_id=container_name + '_net',
+                    network_id=container.name + '_net',
                 )
                 container_network.remove()
         except docker.errors.NotFound:
@@ -103,19 +105,19 @@ class InstantboxManager(object):
                 container.remove(force=True)
             return True
 
-    def is_os_available(self, osCode=None) -> bool:
-        return osCode is not None and osCode in self.AVAILABLE_OS_LIST
+    def is_os_available(self, os_code=None) -> bool:
+        return os_code is not None and os_code in self.AVAILABLE_OS_LIST
 
-    def generateContainerName(self) -> str:
+    def generate_container_name(self) -> str:
         return self.CONTAINER_PREFIX + ''.join(
             random.sample(string.ascii_lowercase + string.digits, 16))
 
 
 if __name__ == '__main__':
     test = InstantboxManager()
-    container_name = test.is_create_container('512', 1,
-                                              'instantbox/ubuntu:latest',
-                                              time.time())
+    container_name = test.create_container('512', 1,
+                                           'instantbox/ubuntu:latest',
+                                           time.time())
     test.get_container_ports(container_name)
     test.remove_timeout_containers()
-    test.is_rm_container(container_name)
+    test.remove_container(container_name)

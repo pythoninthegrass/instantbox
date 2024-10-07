@@ -1,4 +1,4 @@
-#!/bin/python
+#!/usr/bin/env python
 
 import re
 import os
@@ -7,16 +7,16 @@ import time
 from flask_cors import CORS
 from flask import render_template, redirect
 from flask import Flask, request, Response, jsonify
-from api.instantboxManager import InstantboxManager
+from api.instant_box_manager import InstantboxManager
 
 app = Flask(__name__)
 CORS(app, resources=r'/*')
 
-instantboxManager = InstantboxManager()
+instantbox_manager = InstantboxManager()
 
-SERVERURL = os.environ.get('SERVERURL')
-if SERVERURL is None:
-    SERVERURL = ''
+SERVER_URL = os.environ.get('SERVER_URL')
+if SERVER_URL is None:
+    SERVER_URL = ''
 
 
 @app.route('/v2/superinspire')
@@ -25,10 +25,9 @@ def hello():
 
 
 @app.route('/v2/superinspire/getOSList')
-def returnList():
-
+def return_os_list():
     response = Response(
-        json.dumps(instantboxManager.OS_LIST), mimetype='application/json')
+        json.dumps(instantbox_manager.OS_LIST), mimetype='application/json')
 
     response.headers.add('Server', 'python flask')
     response.headers['Access-Control-Allow-Origin'] = '*'
@@ -38,11 +37,11 @@ def returnList():
 
 
 @app.route('/v2/superinspire/rmOS')
-def rmOS():
+def remove_os():
     try:
-        containerId = request.args.get('containerId')
+        container_id = request.args.get('containerId')
         timestamp = request.args.get('timestamp')
-        shareUrl = request.args.get('shareUrl')
+        share_url = request.args.get('shareUrl')
     except Exception:
         response = Response(
             json.dumps({
@@ -52,8 +51,8 @@ def rmOS():
             mimetype='application/json')
     else:
         try:
-            isSuccess = instantboxManager.is_rm_container(containerId)
-            if not isSuccess:
+            is_success = instantbox_manager.is_rm_container(container_id)
+            if not is_success:
                 raise Exception
 
         except Exception:
@@ -69,7 +68,7 @@ def rmOS():
                 json.dumps({
                     'message': 'SUCCESS',
                     'statusCode': 1,
-                    'containerId': containerId,
+                    'containerId': container_id,
                 }),
                 mimetype='application/json')
 
@@ -81,12 +80,12 @@ def rmOS():
 
 
 @app.route('/v2/superinspire/getOS')
-def getOS():
+def get_os():
     open_port = None
 
     try:
         os_name = request.args.get('os')
-        if not instantboxManager.is_os_available(os_name):
+        if not instantbox_manager.is_os_available(os_name):
             raise Exception
     except Exception:
         response = Response(
@@ -112,7 +111,7 @@ def getOS():
             os_timeout = min(float(os_timeout), max_timeout)
 
         try:
-            container_name = instantboxManager.is_create_container(
+            container_name = instantbox_manager.is_create_container(
                 mem=os_mem,
                 cpu=os_cpu,
                 os_name=os_name,
@@ -123,7 +122,7 @@ def getOS():
             if container_name is None:
                 raise Exception
             else:
-                ports = instantboxManager.get_container_ports(container_name)
+                ports = instantbox_manager.get_container_ports(container_name)
                 if os_port is not None:
                     open_port = ports['{}/tcp'.format(os_port)]
 
@@ -138,16 +137,11 @@ def getOS():
         else:
             response = Response(
                 json.dumps({
-                    'message':
-                    'SUCCESS',
-                    'shareUrl':
-                    '/console/{}'.format(container_name),
-                    'openPort':
-                    open_port,
-                    'statusCode':
-                    1,
-                    'containerId':
-                    container_name,
+                    'message': 'SUCCESS',
+                    'shareUrl': '/console/{}'.format(container_name),
+                    'openPort': open_port,
+                    'statusCode': 1,
+                    'containerId': container_name,
                 }),
                 mimetype='application/json')
 
@@ -159,9 +153,9 @@ def getOS():
 
 
 @app.route('/v2/superinspire/prune')
-def pruneTimedoutOS():
+def prune_timedout_os():
     try:
-        instantboxManager.remove_timeout_containers()
+        instantbox_manager.remove_timeout_containers()
         response = Response(
             json.dumps({
                 'message': 'Success',
@@ -184,5 +178,4 @@ def pruneTimedoutOS():
 
 
 if __name__ == '__main__':
-
     app.run(host='0.0.0.0', port=int(65501), debug=False)
