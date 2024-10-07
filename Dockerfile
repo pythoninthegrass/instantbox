@@ -27,7 +27,7 @@ CMD ["inspire.py"]
 ARG BUILD_DATE
 ARG VCS_REF
 
-LABEL org.label-schema.schema-version="1.0"
+LABEL org.opencontainers.image.title="instantbox"
 LABEL org.label-schema.name="instantbox"
 LABEL maintainer="pythoninthegrass <4097471+pythoninthegrass@users.noreply.github.com>"
 LABEL org.label-schema.build-date=$BUILD_DATE
