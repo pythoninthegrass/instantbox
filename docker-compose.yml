@@ -1,6 +1,6 @@
 services:
   server:
-    image: instantbox/instantbox:latest
+    image: ghcr.io/pythoninthegrass/instantbox:latest
     container_name: instantbox_server
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -19,6 +19,7 @@ services:
     networks:
       - instantbox_net
 
+  # TODO: replace w/ofelia
   cron:
     image: instantbox/cron:latest
     container_name: instantbox_cron
