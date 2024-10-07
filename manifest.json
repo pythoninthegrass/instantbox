@@ -2,114 +2,118 @@
   {
     "label": "Ubuntu",
     "value": "ubuntu",
-    "logoUrl": "https://cdn.jsdelivr.net/gh/instantbox/instantbox-images/icon/ubuntu.png",
+    "logoUrl": "https:/github.com/pythoninthegrass/instantbox/blob/master/static/ubuntu.png",
     "subList": [
       {
-        "label": "14.04",
-        "osCode": "instantbox/ubuntu:14.04"
-      },
-      {
-        "label": "16.04",
-        "osCode": "instantbox/ubuntu:16.04"
-      },
-      {
-        "label": "18.04",
-        "osCode": "instantbox/ubuntu:18.04"
-      },
-      {
         "label": "20.04",
-        "osCode": "instantbox/ubuntu:20.04"
+        "osCode": "ubuntu:20.04"
+      },
+      {
+        "label": "22.04",
+        "osCode": "ubuntu:22.04"
+      },
+      {
+        "label": "24.04",
+        "osCode": "ubuntu:24.04"
+      },
+      {
+        "label": "24.10",
+        "osCode": "ubuntu:24.10"
       },
       {
         "label": "latest",
-        "osCode": "instantbox/ubuntu:latest"
+        "osCode": "ubuntu:latest"
       }
     ]
   },
   {
     "label": "CentOS",
     "value": "centos",
-    "logoUrl": "https://cdn.jsdelivr.net/gh/instantbox/instantbox-images/icon/centos.png",
+    "logoUrl": "https:/github.com/pythoninthegrass/instantbox/blob/master/static/centos.png",
     "subList": [
       {
-        "label": "6.10",
-        "osCode": "instantbox/centos:6.10"
-      },
-      {
         "label": "7",
-        "osCode": "instantbox/centos:7"
+        "osCode": "centos:7"
       },
       {
         "label": "8",
-        "osCode": "instantbox/centos:8"
+        "osCode": "centos:centos8"
       },
       {
         "label": "latest",
-        "osCode": "instantbox/centos:latest"
+        "osCode": "centos:latest"
       }
     ]
   },
   {
     "label": "Arch Linux",
     "value": "arch",
-    "logoUrl": "https://cdn.jsdelivr.net/gh/instantbox/instantbox-images/icon/arch.png",
+    "logoUrl": "https:/github.com/pythoninthegrass/instantbox/blob/master/static/arch.png",
     "subList": [
       {
         "label": "latest",
-        "osCode": "instantbox/arch:latest"
+        "osCode": "archlinux:latest"
       }
     ]
   },
   {
     "label": "Debian",
     "value": "debian",
-    "logoUrl": "https://cdn.jsdelivr.net/gh/instantbox/instantbox-images/icon/debian.png",
+    "logoUrl": "https:/github.com/pythoninthegrass/instantbox/blob/master/static/debian.png",
     "subList": [
       {
-        "label": "jessie",
-        "osCode": "instantbox/debian:jessie"
+        "label": "bullseye",
+        "osCode": "debian:bullseye"
       },
       {
-        "label": "stretch",
-        "osCode": "instantbox/debian:stretch"
+        "label": "bookworm",
+        "osCode": "debian:bookworm"
       },
       {
-        "label": "buster",
-        "osCode": "instantbox/debian:buster"
+        "label": "sid",
+        "osCode": "debian:sid"
       },
       {
         "label": "latest",
-        "osCode": "instantbox/debian:latest"
+        "osCode": "debian:latest"
       }
     ]
   },
   {
     "label": "Fedora",
     "value": "fedora",
-    "logoUrl": "https://cdn.jsdelivr.net/gh/instantbox/instantbox-images/icon/fedora.png",
+    "logoUrl": "https:/github.com/pythoninthegrass/instantbox/blob/master/static/fedora.png",
     "subList": [
       {
-        "label": "30",
-        "osCode": "instantbox/fedora:30"
+        "label": "39",
+        "osCode": "fedora:39"
       },
       {
-        "label": "31",
-        "osCode": "instantbox/fedora:31"
+        "label": "40",
+        "osCode": "fedora:40"
+      },
+      {
+        "label": "41",
+        "osCode": "fedora:41"
+      },
+      {
+        "label": "rawhide",
+        "osCode": "fedora:rawhide"
       },
       {
         "label": "latest",
-        "osCode": "instantbox/fedora:latest"
+        "osCode": "fedora:latest"
       }
     ]
   },
   {
     "label": "Alpine",
     "value": "alpine",
-    "logoUrl": "https://cdn.jsdelivr.net/gh/instantbox/instantbox-images/icon/alpine.png",
+    "logoUrl": "https:/github.com/pythoninthegrass/instantbox/blob/master/static/alpine.png",
     "subList": [
       {
         "label": "latest",
-        "osCode": "instantbox/alpine:latest"
+        "osCode": "alpine:latest"
       }
     ]
   }
